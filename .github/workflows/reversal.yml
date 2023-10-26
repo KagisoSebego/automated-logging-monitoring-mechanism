@@ -1,1 +1,41 @@
+name: Transaction Reversal Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  reversal:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Reverse Transaction
+        run: |
+          # Replace with your actual reversal logic, here we just echo a message.
+          echo "Transaction reversed for ID: $TRANSACTION_ID"
+        env:
+          TRANSACTION_ID: 12345
+          REVERSAL_API_KEY: dummy-api-key
+
+      - name: Log Reversal
+        run: |
+          echo "Transaction reversed for ID: $TRANSACTION_ID" >> reversal.log
+        env:
+          TRANSACTION_ID: ${{ secrets.TRANSACTION_ID }}
+        continue-on-error: true
+
+  notification:
+    runs-on: ubuntu-latest
+    needs: reversal
+    steps:
+      - name: Send Notification
+        if: failure()
+        run: |
+          # Replace this with actual notification logic (e.g., sending a message to Slack).
+          echo "Transaction reversal workflow failed!"
+
 
