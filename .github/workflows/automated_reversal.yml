@@ -1,0 +1,67 @@
+name: MFS Transaction and Reversal Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  transaction:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Initiate Transaction
+        run: |
+          # Replace with your actual transaction initiation logic.
+          echo "Transaction initiated for ID: $TRANSACTION_ID"
+        env:
+          TRANSACTION_ID: 12345
+          INITIATION_API_KEY: dummy-initiation-key
+
+      - name: Log Initiation
+        run: |
+          echo "Transaction initiated for ID: $TRANSACTION_ID" >> initiation.log
+        env:
+          TRANSACTION_ID: ${{ secrets.TRANSACTION_ID }}
+
+  reversal:
+    runs-on: ubuntu-latest
+    needs: transaction
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Power Token Generation
+        run: |
+          # Simulate a power token generation failure.
+          echo "Power Token generation failed."
+        continue-on-error: true
+
+      - name: Reversal Process
+        run: |
+          # Replace with your actual reversal logic.
+          echo "Reversal process initiated for Transaction ID: $TRANSACTION_ID"
+        env:
+          TRANSACTION_ID: 12345
+          REVERSAL_API_KEY: dummy-reversal-key
+
+      - name: Log Reversal
+        run: |
+          echo "Reversal process initiated for Transaction ID: $TRANSACTION_ID" >> reversal.log
+        env:
+          TRANSACTION_ID: ${{ secrets.TRANSACTION_ID }}
+
+  notification:
+    runs-on: ubuntu-latest
+    needs: reversal
+
+    steps:
+      - name: Send Notification
+        if: failure()
+        run: |
+          # Replace this with actual notification logic (e.g., sending a message to Slack).
+          echo "Transaction reversal workflow failed!"
