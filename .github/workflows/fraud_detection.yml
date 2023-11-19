@@ -52,17 +52,17 @@ jobs:
           echo "Analyzing fraud patterns across networks"
           # Federated learning analysis commands would go here
 
-  model-deployment:
-    needs: federated-learning-analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy Updated Models
-        run: |
-          echo "Deploying updated fraud detection models"
-          # Model deployment commands would go here
+  # model-deployment:
+  #   needs: federated-learning-analysis
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy Updated Models
+  #       run: |
+  #         echo "Deploying updated fraud detection models"
+  #         # Model deployment commands would go here
 
   alert-generation:
-    needs: model-deployment
+    needs: federated-learning-analysis
     runs-on: ubuntu-latest
     steps:
       - name: Generate Fraud Alerts
@@ -70,7 +70,7 @@ jobs:
           echo "Generating and reporting fraud alerts"
           # Alert generation commands would go here
 
-  post-deployment-monitoring:
+  post-monitoring:
     needs: alert-generation
     runs-on: ubuntu-latest
     steps:
