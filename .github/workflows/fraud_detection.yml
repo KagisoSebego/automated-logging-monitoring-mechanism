@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  call-sms-initialisation:
+  set-up:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
   blockchain-verification:
-    needs: call-sms-initialisation
+    needs: set-up
     runs-on: ubuntu-latest
     steps:
       - name: Blockchain Call Records Verification
