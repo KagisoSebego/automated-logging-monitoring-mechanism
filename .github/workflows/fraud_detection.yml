@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  setup-environment:
+  call-sms-initialisation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
   blockchain-verification:
-    needs: setup-environment
+    needs: call-sms-initialisation
     runs-on: ubuntu-latest
     steps:
       - name: Blockchain Call Records Verification
@@ -71,6 +71,15 @@ jobs:
           # Alert generation commands would go here
 
   monitoring:
+    needs: alert-generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post-deployment Monitoring
+        run: |
+          echo "Monitoring post-deployment performance"
+          # Post-deployment monitoring commands would go here
+
+  blocked-communication:
     needs: alert-generation
     runs-on: ubuntu-latest
     steps:
