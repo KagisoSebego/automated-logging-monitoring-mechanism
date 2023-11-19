@@ -18,10 +18,6 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
     # Blockchain Module: Verify Call Records Integrity
     - name: Blockchain Call Records Verification
       run: |
