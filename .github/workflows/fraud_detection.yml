@@ -35,7 +35,7 @@ jobs:
           # Machine learning detection commands would go here
 
   ai-social-engineering-analysis:
-    needs: machine-learning-detection
+    needs: blockchain-verification
     runs-on: ubuntu-latest
     steps:
       - name: AI Social Engineering Analysis
@@ -44,7 +44,7 @@ jobs:
           # AI analysis commands would go here
 
   federated-learning-analysis:
-    needs: ai-social-engineering-analysis
+    needs: blockchain-verification
     runs-on: ubuntu-latest
     steps:
       - name: Federated Learning Fraud Pattern Analysis
