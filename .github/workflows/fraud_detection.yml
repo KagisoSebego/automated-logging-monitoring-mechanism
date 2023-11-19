@@ -7,55 +7,74 @@ on:
     branches: [ main ]
 
 jobs:
-  detect-and-prevent-fraud:
+  setup-environment:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.11'
+  blockchain-verification:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Blockchain Call Records Verification
+        run: |
+          echo "Verifying call records using blockchain"
+          # Blockchain verification commands would go here
 
-    # Blockchain Module: Verify Call Records Integrity
-    - name: Blockchain Call Records Verification
-      run: |
-        echo "Verifying call records using blockchain"
-        # Commands to verify call records integrity with blockchain
+  machine-learning-detection:
+    needs: blockchain-verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: ML Anomalous Call Detection
+        run: |
+          echo "Detecting anomalous calls"
+          # Machine learning detection commands would go here
 
-    # Machine Learning Module: Detect Anomalous Calls
-    - name: ML Anomalous Call Detection
-      run: |
-        echo "Detecting anomalous calls"
-        # Machine learning commands to detect unusual call patterns
+  ai-social-engineering-analysis:
+    needs: machine-learning-detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: AI Social Engineering Analysis
+        run: |
+          echo "Analyzing potential social engineering patterns"
+          # AI analysis commands would go here
 
-    # AI Module: Analyze Social Engineering Patterns
-    - name: AI Social Engineering Analysis
-      run: |
-        echo "Analyzing potential social engineering patterns"
-        # AI commands to analyze speech, call duration, frequency, etc.
+  federated-learning-analysis:
+    needs: ai-social-engineering-analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Federated Learning Fraud Pattern Analysis
+        run: |
+          echo "Analyzing fraud patterns across networks"
+          # Federated learning analysis commands would go here
 
-    # Federated Learning: Cross-Network Fraud Pattern Analysis
-    - name: Federated Learning Fraud Pattern Analysis
-      run: |
-        echo "Analyzing fraud patterns across networks"
-        # Federated learning commands for cross-network fraud analysis
+  model-deployment:
+    needs: federated-learning-analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Updated Models
+        run: |
+          echo "Deploying updated fraud detection models"
+          # Model deployment commands would go here
 
-    # Deployment of Updated Fraud Detection Models
-    - name: Deploy Updated Models
-      run: |
-        echo "Deploying updated fraud detection models"
-        # Deployment commands for updated models
+  alert-generation:
+    needs: model-deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Fraud Alerts
+        run: |
+          echo "Generating and reporting fraud alerts"
+          # Alert generation commands would go here
 
-    # Alert Generation and Reporting
-    - name: Generate Fraud Alerts
-      run: |
-        echo "Generating and reporting fraud alerts"
-        # Commands to generate and report fraud alerts to relevant parties
-
-    # Post-deployment Monitoring
-    - name: Post-deployment Monitoring
-      run: |
-        echo "Monitoring post-deployment performance"
-        # Monitoring and logging for post-deployment performance analysis
+  post-deployment-monitoring:
+    needs: alert-generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post-deployment Monitoring
+        run: |
+          echo "Monitoring post-deployment performance"
+          # Post-deployment monitoring commands would go here
