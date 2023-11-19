@@ -70,7 +70,7 @@ jobs:
           echo "Generating and reporting fraud alerts"
           # Alert generation commands would go here
 
-  post-monitoring:
+  monitoring:
     needs: alert-generation
     runs-on: ubuntu-latest
     steps:
